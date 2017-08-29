@@ -1,0 +1,18 @@
+Router 1 Verification
+
+ping 2.2.2.2 source 1.1.1.1
+ping 3.3.3.3 source 1.1.1.1
+
+
+===============================================================
+Router 2 Verification
+
+ping 1.1.1.1 source 2.2.2.2
+ping 3.3.3.3 source 2.2.2.2
+
+
+===============================================================
+Router 2 Verification
+
+ping 2.2.2.2 source 3.3.3.3
+ping 1.1.1.1 source 3.3.3.3

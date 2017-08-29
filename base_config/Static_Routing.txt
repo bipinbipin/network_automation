@@ -1,0 +1,72 @@
+Router1
+
+conf t
+interface gig 1
+ ip address 10.1.2.1 255.255.255.252
+ no shut
+ exit
+
+interface gig 2
+ ip address 10.1.3.1 255.255.255.0
+ no shut
+ exit
+
+interface loopback 0
+ ip address 1.1.1.1 255.255.255.255
+ exit
+
+ip route 2.2.2.2 255.255.255.255 10.1.2.2 name Router2-Loopback
+ip route 3.3.3.3 255.255.255.255 10.1.3.3 name Router3-Loopback
+ip route 10.2.3.0 255.255.255.0 10.1.2.2 name Router2-Router3-Link
+ip route 10.2.3.0 255.255.255.0 10.1.3.3 name Router2-Router3-Link
+end
+
+===============================================================
+Router 2
+
+conf t
+interface gig 2
+ ip address 10.1.2.2 255.255.255.252
+ no shut
+ exit
+
+interface gig 1
+ ip address 10.2.3.2 255.255.255.0
+ no shut
+ exit
+
+interface loopback 0
+ ip address 2.2.2.2 255.255.255.255
+ exit
+
+ip route 1.1.1.1 255.255.255.255 10.1.2.1 name Router1-Loopback
+ip route 3.3.3.3 255.255.255.255 10.2.3.3 name Router3-Loopback
+ip route 10.1.3.0 255.255.255.0 10.1.2.1 name Router1-Router3-Link
+ip route 10.1.3.0 255.255.255.0 10.2.3.3 name Router1-Router3-Link
+end
+
+
+===============================================================
+Router 3
+
+conf t
+interface gig 1
+ ip address 10.1.3.3 255.255.255.252
+ no shut
+ exit
+
+interface gig 2
+ ip address 10.2.3.3 255.255.255.0
+ no shut
+ exit
+
+interface loopback 0
+ ip address 3.3.3.3 255.255.255.255
+ exit
+
+ip route 1.1.1.1 255.255.255.255 10.1.3.1 name Router1-Loopback
+ip route 2.2.2.2 255.255.255.255 10.2.3.2 name Router2-Loopback
+ip route 10.1.2.0 255.255.255.252 10.1.3.1 name Router1-Router2-Link
+ip route 10.1.2.0 255.255.255.252 10.2.3.2 name Router1-Router2-Link
+end
+
